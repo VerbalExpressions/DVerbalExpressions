@@ -17,15 +17,15 @@ This D module is based off of the original Javascript [Verbal expressions librar
 auto e = (new VerEx())
          .searchOneLine()
          .startOfLine()
-         .then( "http" )
-         .maybe( "s" )
-         .then( "://" )
-         .maybe( "www." )
-         .anythingBut( " " )
+         .then("http")
+         .maybe("s")
+         .then("://")
+         .maybe("www.")
+         .anythingBut(" ")
          .endOfLine();
          
 // Use VerEx.test() function to find if it matches.
-writefln("Match? %s", e.test() ? "yes" : "no");
+writefln("Match? %s", e.test("http://www.google.es") ? "yes" : "no");
 ```
 
 ## Compiling
