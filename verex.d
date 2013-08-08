@@ -226,4 +226,8 @@ class VerEx {
 			string toTest = modifiers & Flags.Multiline ? value : reduceLines(value);
 			return cast(bool)std.regex.match(toTest, std.regex.regex(pattern, createFlags(modifiers & Flags.Global ? "g" : "")));
 		}
+		
+		override string toString() {
+			return pattern;
+		}
 }
