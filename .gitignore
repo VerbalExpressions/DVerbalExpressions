@@ -1,1 +1,5 @@
+# Ignoring object files.
 *.o
+
+# Ignoring some executable files.
+example
