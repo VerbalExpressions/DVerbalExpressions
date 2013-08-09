@@ -4,7 +4,7 @@
  * 
  * @author Diego <beosman@gmail.com>
  * @version 0.1
- * @date 2013-08-08
+ * @date 2013-08-09
  * 
  * The MIT License (MIT)
  * 
@@ -62,17 +62,18 @@ class VerEx {
 			return (index == -1 ? value : value[0..index]);
 		}
 		
+		string sanitize(string value) {
+			// TODO: Implement this according to JS version.
+			return value;
+		}
+		
 	public:
 	
 		uint modifiers;
 		
-		this() {
-		}
+		this() {}
 		
-		~this() {
-		}
-		
-		// TODO Implement opAssign.
+		~this() {}
 		
 		ref VerEx add(string value) {
 			source ~= value;
@@ -149,7 +150,23 @@ class VerEx {
 		}
 		
 		ref VerEx range(string[] args) {
-			// TODO Implement this.
+			
+			if(args.length <= 0 || args.length % 2 != 0) {
+				// We do not raise an error if there are no arguments or there are no paired arguments.
+				// We simply return this. Is this correct?
+				return this;
+			}
+			
+			string value = "[";
+			
+			for(int from = 0, to = from + 1; from < args.length; from += 2, to += 2) {
+				value ~= args[from] ~ "-" ~ args[to];
+			}
+			
+			value ~= "]";
+			
+			add(value);
+			
 			return this;
 		}
 		
@@ -212,6 +229,7 @@ class VerEx {
 		}
 		
 		ref VerEx alt(string value) {
+			// Same as 'or' method in JS version.
 			if(indexOf(prefixes, '(') == -1) {
 				prefixes ~= "(";
 			}
@@ -222,6 +240,18 @@ class VerEx {
 			return then(value);
 		}
 		
+		ref VerEx beginCapture() {
+			suffixes ~= ")";
+			add("(");
+			return this;
+		}
+		
+		ref VerEx endCapture() {
+			suffixes = suffixes[0..$-1];
+			add(")");
+			return this;
+		}
+		
 		bool test(string value) {
 			string toTest = modifiers & Flags.Multiline ? value : reduceLines(value);
 			return cast(bool)std.regex.match(toTest, std.regex.regex(pattern, createFlags(modifiers & Flags.Global ? "g" : "")));
@@ -230,4 +260,23 @@ class VerEx {
 		override string toString() {
 			return pattern;
 		}
+}
+
+unittest {
+	
+	auto e = (new VerEx()).searchOneLine()
+			.startOfLine()
+			.then("http")
+			.maybe("s")
+			.then("://")
+			.maybe("www.")
+			.anythingBut(" ")
+			.endOfLine();
+			
+	assert(e.toString() == "^(?:http)(?:s)?(?:://)(?:www.)?(?:[^ ]*)$");
+			
+	assert(e.test("http://www.google.es"));
+	assert(e.test("https://gmail.com"));
+	assert(!e.test("invalid.url.com"));
+	
 }
