@@ -1,6 +1,7 @@
 /**
- * Verbal Expressions v0.1 ported to D from JavaScript version
- * https://github.com/beosman/DVerbalExpressions.git
+ * Verbal Expressions v0.1 ported to D from JavaScript version.
+ * 
+ * https://github.com/VerbalExpressions
  * 
  * @author Diego <beosman@gmail.com>
  * @version 0.1
