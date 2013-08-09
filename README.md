@@ -30,9 +30,19 @@ writefln("Match? %s", e.test("http://www.google.es") ? "yes" : "no");
 
 ## Compiling
 
-Compiling using DMD:
+Compiling the module using DMD:
 
+```bash
 $ dmd verex.d
+```
+
+Compiling your application with this module using DMD:
+
+```bash
+$ dmd -ofmy_application my_application.d verex.o
+```
+
+You can use varios DMD options to compile in 'debug', 'release' or 'unittest' modes.
 
 ## Using in your project
 
