@@ -229,8 +229,7 @@ class VerEx {
 			return add(value);
 		}
 		
-		ref VerEx alt(string value) {
-			// Same as 'or' method in JS version.
+		ref VerEx or(string value) {
 			if(indexOf(prefixes, '(') == -1) {
 				prefixes ~= "(";
 			}
@@ -279,5 +278,7 @@ unittest {
 	assert(e.test("http://www.google.es"));
 	assert(e.test("https://gmail.com"));
 	assert(!e.test("invalid.url.com"));
+	
+	assert((new VerEx()).find("red").replace("We have a red house", "blue") == "We have a blue house");
 	
 }
