@@ -64,8 +64,8 @@ class VerEx {
 		}
 		
 		string sanitize(string value) {
-			// TODO: Implement this according to JS version.
-			return value;
+			// Is the use of this method really needed using D regular expressions?
+			return std.regex.replace(value, regex("[^\\w]", "g"), `\$&`);
 		}
 		
 	public:
