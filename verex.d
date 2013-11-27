@@ -3,7 +3,7 @@
  * 
  * https://github.com/VerbalExpressions
  * 
- * @author Diego <beosman@gmail.com>
+ * @author Diego Lago <diego.lago.gonzalez@gmail.com>
  * @version 0.1
  * @date 2013-08-09
  * 
